@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -61,13 +60,21 @@ class StringCalculatorTest {
         int add4 = calculator.add("//[foo][bar]\n1foo2bar3");
         assertEquals(6, add4);
     }
+    @Test
+    public void numberOneBetweenCharacters()
+    {
+        int add = calculator.add("//[1]\n1*1*2*1*3");
+        assertEquals(6, add);
+    }
 
     @Test
     public void setCalculatorTest() {
         int add = calculator.add("2,22");
         assertEquals(24, add);
+
         int add1 = calculator.add("22,22");
         assertEquals(44, add1);
+
         int add2 = calculator.add("2,11,2");
         assertEquals(15, add2);
     }
