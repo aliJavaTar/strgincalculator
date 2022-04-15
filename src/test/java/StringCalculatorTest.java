@@ -76,5 +76,9 @@ class StringCalculatorTest {
     public void NumberBiggerThan1000() {
         int add = calculator.add("1001,2");
         assertEquals(2, add);
+        int add1 = calculator.add("5000,88");
+        assertEquals(88, add1);
+        int add2 = calculator.add("2221,7,7");
+        assertEquals(14, add2);
     }
 }
