@@ -4,30 +4,28 @@ public class StringCalculator {
 
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
-        else
-            return sumNumbers(textCorrection(numbers));
+        else {
+            String correction = textCorrection(numbers);
+            return sumNumbers(correction);
+        }
     }
 
-    private int sumNumbers(String string) {
+    private int sumNumbers(String string)
+    {
         int sum = 0;
         String[] array = convertToArray(string);
         String sumNumber = "";
 
-        for (int index = 0; index < array.length; index++) {
-            if (validation(array[index])) {
-                if (index > 1) {
-                    if (isTrue(array, index))
-                        array[index] = "0";
-
-                }
-
-                sumNumber = sumNumber + array[index];
+        for (String s : array)
+        {
+            if (validation(s))
+            {
+                sumNumber = sumNumber + s;
                 if (sumNumber.length() > 3)
                     sumNumber = "";
             } else {
                 if (!sumNumber.isEmpty() && !sumNumber.isBlank())
                     sum += convertToInteger(sumNumber);
-
                 sumNumber = "";
             }
 
@@ -35,11 +33,6 @@ public class StringCalculator {
         return sum + convertToInteger(sumNumber);
     }
 
-    private boolean isTrue(String[] array, int index) {
-        return array[index].equals("1") &&
-                (validationStar(array[index - 1]) && validationStar(array[index + 1])) &&
-                (!array[index - 1].equals(",") && !array[index + 1].equals(","));
-    }
 
 
     private String[] convertToArray(String array) {
@@ -52,11 +45,6 @@ public class StringCalculator {
 
     private boolean validation(String value) {
         String regex = "[0-9]+";
-        return Pattern.matches(regex, value);
-    }
-
-    private boolean validationStar(String value) {
-        String regex = "[^\\w\\s]";
         return Pattern.matches(regex, value);
     }
 

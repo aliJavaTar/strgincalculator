@@ -114,4 +114,10 @@ class StringCalculatorTest {
         int add2 = calculator.add("2221,7,7");
         assertEquals(14, add2);
     }
+
+    @Test
+    public void textWhitSeveralBracket()
+    {
+
+    }
 }
