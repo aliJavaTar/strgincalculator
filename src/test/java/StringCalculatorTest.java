@@ -115,9 +115,10 @@ class StringCalculatorTest {
         assertEquals(14, add2);
     }
 
-    @Test
-    public void textWhitSeveralBracket()
-    {
-
-    }
+//    @Test
+//    public void textWhitSeveralBracket()
+//    {
+//        int add = calculator.add("//[foo][foo2bar3][bar]\n1foo2bar3");
+//        assertEquals(6, add);
+//    }
 }

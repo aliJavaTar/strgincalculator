@@ -10,16 +10,13 @@ public class StringCalculator {
         }
     }
 
-    private int sumNumbers(String string)
-    {
+    private int sumNumbers(String string) {
         int sum = 0;
         String[] array = convertToArray(string);
         String sumNumber = "";
 
-        for (String s : array)
-        {
-            if (validation(s))
-            {
+        for (String s : array) {
+            if (validation(s)) {
                 sumNumber = sumNumber + s;
                 if (sumNumber.length() > 3)
                     sumNumber = "";
@@ -34,52 +31,35 @@ public class StringCalculator {
     }
 
 
-
-    private String[] convertToArray(String array) {
-        return array.split("");
-    }
-
-    private int convertToInteger(String number) {
-        return Integer.parseInt(number);
-    }
-
-    private boolean validation(String value) {
-        String regex = "[0-9]+";
-        return Pattern.matches(regex, value);
-    }
-
-    private String textCorrection(String sentence) {
-        String[] text = sentence.split("");
+    private String textCorrection(String sentence)
+    {
+        String[] arrayText = sentence.split("");
         int index1, index2;
-        String replace = "";
-        if (haveBrokeOpenAndClose(text)) {
+        if (haveBrokeOpenAndClose(arrayText))
+        {
             index1 = sentence.indexOf("[");
             index2 = sentence.indexOf("]");
             String find = findWord(index1, index2, sentence);
             if (!find.isEmpty())
                 return replace(sentence, find);
-
+            else return sentence;
         } else return sentence;
-
-        return replace;
     }
 
     private String replace(String text, String find) {
-        if (text.contains(find) && havaNumber(find)) {
+        if (text.contains(find) && havaNumber(find))
             return text.replaceAll("[^\\n]" + find, "");
-        } else return text;
+        else return text;
     }
 
-    private boolean havaNumber(String textFind)
-    {
+    private boolean havaNumber(String wordFind) {
         boolean containsNumber = false;
-        String[] strings = textFind.split("");
-        for (int index = 0; index < textFind.length(); index++)
-        {
-            if (validation(strings[index]))
-                 containsNumber=true;
+        String[] arrayWordFind = wordFind.split("");
+        for (int index = 0; index < wordFind.length(); index++) {
+            if (validation(arrayWordFind[index]))
+                containsNumber = true;
         }
-         return containsNumber;
+        return containsNumber;
     }
 
     private String findWord(int index1, int index2, String test) {
@@ -93,19 +73,34 @@ public class StringCalculator {
 
     private boolean haveBrokeOpenAndClose(String[] array) {
         boolean haveBroke = false;
-        for (int index = 0; index < array.length; index++) {
-            if (array[index].contains("[")) {
-                for (int i = index; i < array.length; i++) {
-                    if (array[i].contains("]")) {
+        for (int index = 0; index < array.length; index++)
+        {
+            if (array[index].contains("["))
+            {
+                for (int i = index; i < array.length; i++)
+                {
+                    if (array[i].contains("]"))
+                    {
                         haveBroke = true;
                         break;
                     }
                 }
                 break;
             }
-
         }
         return haveBroke;
     }
 
+    private String[] convertToArray(String array) {
+        return array.split("");
+    }
+
+    private int convertToInteger(String number) {
+        return Integer.parseInt(number);
+    }
+
+    private boolean validation(String value) {
+        String regex = "[0-9]+";
+        return Pattern.matches(regex, value);
+    }
 }
