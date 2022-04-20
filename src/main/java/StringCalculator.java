@@ -34,12 +34,14 @@ public class StringCalculator {
     }
 
 
-    private String replace(String text, String[] find) {
+    private String replace(String text, String[] find)
+    {
+        System.out.println(text);
         for (String f : find) {
             if (text.contains(f) && havaNumber(f)) {
-                String[] split = text.split("[^\\n] " + f);
-                text = Arrays.toString(split);
-                System.out.println(text);
+             text = text.replaceAll( f, ",");
+//                String[] split = text.split("[^\\n]"+f);
+//                text = Arrays.toString(split);
             }
         }
         return text;

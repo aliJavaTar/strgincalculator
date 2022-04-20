@@ -124,12 +124,13 @@ class StringCalculatorTest {
     @Test
     public void beforeSeparatorsNewLine() {
         int add = calculator.add("[1]\n1*2*1*3*1");
-        assertEquals(6,add);
+        assertEquals(6, add);
+
     }
 
     @Test
     public void testIdea() {
-        int add1 = calculator.add("//[foo][bar]\n1foo23bar3[foo23bar]");
+        int add1 = calculator.add("//[foo][foo23bar][bar]\n1foo23bar3");
         assertEquals(4, add1);
 
     }
