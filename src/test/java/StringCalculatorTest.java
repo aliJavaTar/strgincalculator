@@ -1,6 +1,14 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
+import static java.util.Arrays.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorTest {
@@ -55,17 +63,17 @@ class StringCalculatorTest {
         int add1 = calculator.add("//;\n1;2");
         assertEquals(3, add1);
 
-        int add8 = calculator.add("//[e];\n1;2");
-        assertEquals(3, add8);
-
         int add2 = calculator.add("//[*][%]\n1*2%3");
         assertEquals(6, add2);
 
         int add3 = calculator.add("//[***]\n1***2***3");
         assertEquals(6, add3);
 
-        int add4 = calculator.add("//[foo][bar]\n1foo2bar3");
-        assertEquals(6, add4);
+        int add4 = calculator.add("//[foo][bar3]\n1foo2bar3");
+        assertEquals(3, add4);
+
+        int add5 = calculator.add("//[e];\n1;2");
+        assertEquals(3, add5);
 
     }
 
@@ -80,16 +88,14 @@ class StringCalculatorTest {
         int add3 = calculator.add("//[o][%]\n1*2%3");
         assertEquals(6, add3);
     }
+
     @Test
-    public void numberOneBetweenCharacters()
-    {
-        int add = calculator.add("//[1]\n1*1*2*1*3");
-        assertEquals(6, add);
+    public void numberOneBetweenCharacters() {
 
         int add1 = calculator.add("//[1_€#@546]\n1*1_€#@546*2*1_€#@546*3");
         assertEquals(6, add1);
 
-        int add2 = calculator.add("//[1_€#@]\n1*1_€#@*2*1_€#@*3");
+        int add2 = calculator.add("//[1_€#@]\n1#1_€#@*2*1_€#@*3");
         assertEquals(6, add2);
     }
 
@@ -115,10 +121,16 @@ class StringCalculatorTest {
         assertEquals(14, add2);
     }
 
-//    @Test
-//    public void textWhitSeveralBracket()
-//    {
-//        int add = calculator.add("//[foo][foo2bar3][bar]\n1foo2bar3");
-//        assertEquals(6, add);
-//    }
+    @Test
+    public void beforeSeparatorsNewLine() {
+        int add = calculator.add("[1]\n1*2*1*3*1");
+        assertEquals(6,add);
+    }
+
+    @Test
+    public void testIdea() {
+        int add1 = calculator.add("//[foo][bar]\n1foo23bar3[foo23bar]");
+        assertEquals(4, add1);
+
+    }
 }

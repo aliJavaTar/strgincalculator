@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
@@ -5,8 +9,9 @@ public class StringCalculator {
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
         else {
-            String correction = textCorrection(numbers);
-            return sumNumbers(correction);
+            String[] betweenBracket = findBetweenBracket(numbers);
+            String replace = replace(numbers, betweenBracket);
+            return sumNumbers(replace);
         }
     }
 
@@ -14,7 +19,6 @@ public class StringCalculator {
         int sum = 0;
         String[] array = convertToArray(string);
         String sumNumber = "";
-
         for (String s : array) {
             if (validation(s)) {
                 sumNumber = sumNumber + s;
@@ -25,36 +29,25 @@ public class StringCalculator {
                     sum += convertToInteger(sumNumber);
                 sumNumber = "";
             }
-
         }
         return sum + convertToInteger(sumNumber);
     }
 
 
-    private String textCorrection(String sentence)
-    {
-        String[] arrayText = sentence.split("");
-        int index1, index2;
-        if (haveBrokeOpenAndClose(arrayText))
-        {
-            index1 = sentence.indexOf("[");
-            index2 = sentence.indexOf("]");
-            String find = findWord(index1, index2, sentence);
-            if (!find.isEmpty())
-                return replace(sentence, find);
-            else return sentence;
-        } else return sentence;
-    }
-
-    private String replace(String text, String find) {
-        if (text.contains(find) && havaNumber(find))
-            return text.replaceAll("[^\\n]" + find, "");
-        else return text;
+    private String replace(String text, String[] find) {
+        for (String f : find) {
+            if (text.contains(f) && havaNumber(f)) {
+                String[] split = text.split("[^\\n] " + f);
+                text = Arrays.toString(split);
+                System.out.println(text);
+            }
+        }
+        return text;
     }
 
     private boolean havaNumber(String wordFind) {
         boolean containsNumber = false;
-        String[] arrayWordFind = wordFind.split("");
+        String[] arrayWordFind = convertToArray(wordFind);
         for (int index = 0; index < wordFind.length(); index++) {
             if (validation(arrayWordFind[index]))
                 containsNumber = true;
@@ -62,45 +55,34 @@ public class StringCalculator {
         return containsNumber;
     }
 
-    private String findWord(int index1, int index2, String test) {
-        String[] split = test.split("");
-        String word = "";
-        for (int index = index1 + 1; index < index2; index++) {
-            word += split[index];
-        }
-        return word;
-    }
-
-    private boolean haveBrokeOpenAndClose(String[] array) {
-        boolean haveBroke = false;
-        for (int index = 0; index < array.length; index++)
-        {
-            if (array[index].contains("["))
-            {
-                for (int i = index; i < array.length; i++)
-                {
-                    if (array[i].contains("]"))
-                    {
-                        haveBroke = true;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-        return haveBroke;
-    }
 
     private String[] convertToArray(String array) {
         return array.split("");
     }
 
     private int convertToInteger(String number) {
-        return Integer.parseInt(number);
+        if (!number.isEmpty())
+            return Integer.parseInt(number);
+        return 0;
     }
 
     private boolean validation(String value) {
         String regex = "[0-9]+";
         return Pattern.matches(regex, value);
     }
+
+    private String[] findBetweenBracket(String sentences) {
+        Pattern pattern = Pattern.compile("\\[(.*?)]");
+        Matcher matcher = pattern.matcher(sentences);
+        String group = "";
+        while (matcher.find()) {
+            group += matcher.group(1) + ",";
+        }
+
+        String[] findWords = group.split(",");
+
+        Arrays.sort(findWords, Comparator.comparingInt(String::length).reversed());
+        return findWords;
+    }
 }
+
