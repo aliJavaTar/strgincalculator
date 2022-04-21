@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +18,7 @@ public class StringCalculator {
         String sumNumber = "";
         for (String s : array)
         {
-            if (validation(s))
+            if (isValidation(s))
             {
                 sumNumber = sumNumber + s;
                 if (sumNumber.length() > 3)
@@ -35,32 +34,25 @@ public class StringCalculator {
 
 
     private String replace(String text, String[] find) {
-        int x = text.lastIndexOf(']');
-        String test="";
-        for (int index = x+1; index < text.length(); index++)
-        {
-            test+=text.charAt(index);
-        }
-        System.out.println("test "+test );
 
             for (String f : find)
             {
-                if (test.contains(f) && havaNumber(f) )
+                if (text.contains(f) && havaNumber(f) )
                 {
                     //[^\\n]
-                    String[] split = test.split(f);
-                    test = Arrays.toString(split);
+                    String[] split = text.split(f);
+                    text = Arrays.toString(split);
                 }
             }
 
-        return test;
+        return text;
     }
 
     private boolean havaNumber(String wordFind) {
         boolean containsNumber = false;
         String[] arrayWordFind = convertToArray(wordFind);
         for (int index = 0; index < wordFind.length(); index++) {
-            if (validation(arrayWordFind[index]))
+            if (isValidation(arrayWordFind[index]))
                 containsNumber = true;
         }
         return containsNumber;
@@ -77,7 +69,7 @@ public class StringCalculator {
         return 0;
     }
 
-    private boolean validation(String value) {
+    private boolean isValidation(String value) {
         String regex = "[0-9]+";
         return Pattern.matches(regex, value);
     }
