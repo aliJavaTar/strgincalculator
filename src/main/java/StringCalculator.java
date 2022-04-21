@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,19 +8,17 @@ public class StringCalculator {
 
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
-            String[] betweenBracket = findBetweenBracket(numbers);
-            String replace = replace(numbers, betweenBracket);
-            return sumNumbers(replace);
+        String[] betweenBracket = findBetweenBracket(numbers);
+        String replace = replace(numbers, betweenBracket);
+        return sumNumbers(replace);
     }
 
     private int sumNumbers(String string) {
         int sum = 0;
         String[] array = convertToArray(string);
         String sumNumber = "";
-        for (String s : array)
-        {
-            if (isValidation(s))
-            {
+        for (String s : array) {
+            if (isValidation(s)) {
                 sumNumber = sumNumber + s;
                 if (sumNumber.length() > 3)
                     sumNumber = "";
@@ -32,19 +31,19 @@ public class StringCalculator {
         return sum + convertToInteger(sumNumber);
     }
 
-
     private String replace(String text, String[] find) {
+//        ("[1]\n1*2*1*3*1");
 
-            for (String f : find)
-            {
-                if (text.contains(f) && havaNumber(f) )
-                {
-                    //[^\\n]
-                    String[] split = text.split(f);
-                    text = Arrays.toString(split);
+        for (String f : find) {
+            if (text.contains(f) && havaNumber(f)) {
+                boolean contains = text.contains("\n" + f);
+                String[] split = text.split(f);
+                if (contains) {
+                    split[0] += f;
                 }
+                text = Arrays.toString(split);
             }
-
+        }
         return text;
     }
 
@@ -57,7 +56,6 @@ public class StringCalculator {
         }
         return containsNumber;
     }
-
 
     private String[] convertToArray(String array) {
         return array.split("");
@@ -80,11 +78,8 @@ public class StringCalculator {
         String group = "";
         while (matcher.find()) {
             group += matcher.group(1) + ",";
-
         }
-
         String[] findWords = group.split(",");
-
         Arrays.sort(findWords, Comparator.comparingInt(String::length).reversed());
         return findWords;
     }
