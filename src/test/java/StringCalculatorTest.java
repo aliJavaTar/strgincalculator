@@ -127,6 +127,8 @@ class StringCalculatorTest {
         assertEquals(6, add);
         int add1 =calculator.add("[23]\n23*1*3,23");
         assertEquals(27, add1);
+        int add2 = calculator.add("[2]\n1*2*1*3*1");
+        assertEquals(6, add2);
     }
 
     @Test

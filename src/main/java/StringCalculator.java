@@ -32,15 +32,15 @@ public class StringCalculator {
     }
 
     private String replace(String text, String[] find) {
-//        ("[1]\n1*2*1*3*1");
+
 
         for (String f : find) {
             if (text.contains(f) && havaNumber(f)) {
                 boolean contains = text.contains("\n" + f);
                 String[] split = text.split(f);
-                if (contains) {
+                if (contains)
                     split[0] += f;
-                }
+
                 text = Arrays.toString(split);
             }
         }
