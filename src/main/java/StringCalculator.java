@@ -8,19 +8,19 @@ public class StringCalculator {
 
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
-        else {
             String[] betweenBracket = findBetweenBracket(numbers);
             String replace = replace(numbers, betweenBracket);
             return sumNumbers(replace);
-        }
     }
 
     private int sumNumbers(String string) {
         int sum = 0;
         String[] array = convertToArray(string);
         String sumNumber = "";
-        for (String s : array) {
-            if (validation(s)) {
+        for (String s : array)
+        {
+            if (validation(s))
+            {
                 sumNumber = sumNumber + s;
                 if (sumNumber.length() > 3)
                     sumNumber = "";
@@ -34,17 +34,26 @@ public class StringCalculator {
     }
 
 
-    private String replace(String text, String[] find)
-    {
-        System.out.println(text);
-        for (String f : find) {
-            if (text.contains(f) && havaNumber(f)) {
-             text = text.replaceAll( f, ",");
-//                String[] split = text.split("[^\\n]"+f);
-//                text = Arrays.toString(split);
-            }
+    private String replace(String text, String[] find) {
+        int x = text.lastIndexOf(']');
+        String test="";
+        for (int index = x+1; index < text.length(); index++)
+        {
+            test+=text.charAt(index);
         }
-        return text;
+        System.out.println("test "+test );
+
+            for (String f : find)
+            {
+                if (test.contains(f) && havaNumber(f) )
+                {
+                    //[^\\n]
+                    String[] split = test.split(f);
+                    test = Arrays.toString(split);
+                }
+            }
+
+        return test;
     }
 
     private boolean havaNumber(String wordFind) {
@@ -79,6 +88,7 @@ public class StringCalculator {
         String group = "";
         while (matcher.find()) {
             group += matcher.group(1) + ",";
+
         }
 
         String[] findWords = group.split(",");
