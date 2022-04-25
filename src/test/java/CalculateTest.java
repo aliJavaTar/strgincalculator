@@ -173,5 +173,20 @@ class CalculateTest {
         assertEquals(add, 34);
 
     }
+    @Test
+    public void testIdea() {
+        int add;
+        calculate.setInputText("//[foo][foo23bar][bar]\n1foo23bar3");
+        add = calculate.add();
+        assertEquals(4, add);
+
+        calculate.setInputText("//[foo2][foo23bar][bar]\n1foo23bar3");
+        add = calculate.add();
+        assertEquals(4, add);
+
+        calculate.setInputText("//[foo2][foo23bar][bar3]\n1foo23bar3");
+        add = calculate.add();
+        assertEquals(4, add);
+    }
 
 }

@@ -13,8 +13,7 @@ public class Text {
         String[] splits = inputText.split("\\D");
 
         for (String n : splits) {
-            if (!n.isEmpty())
-                numbersList.add(n);
+            if (!n.isEmpty()) numbersList.add(n);
         }
         return numbersList.toArray(new String[0]);
     }
@@ -23,8 +22,7 @@ public class Text {
     protected void negativesNotAllowed() throws Exception {
         String regex = "-\\d+";
         String group = findByRegex(regex, 0);
-        if (!group.isEmpty())
-            throw new Exception("error: negatives not allowed " + group);
+        if (!group.isEmpty()) throw new Exception("error: negatives not allowed " + group);
     }
 
     private String findByRegex(String regex, int number) {
@@ -45,15 +43,6 @@ public class Text {
         return findWords;
     }
 
-    //    protected String splitText() {
-//        String finalText = "";
-//        for (String f : find) {
-//            String[] split = this.inputText.split(f);
-//            finalText = Arrays.toString(split);
-//        }
-//        System.out.println(finalText);
-//        return finalText;
-//    }
     protected void splitText() {
         String[] find = findBetweenBracket();
         StringBuilder add = new StringBuilder();
@@ -61,7 +50,7 @@ public class Text {
             if (TextHavaNumber(f)) {
                 boolean contains = inputText.contains("\n" + f);
                 f = replaceCustomSeparator(f);
-                System.out.println(f);
+
                 String[] split = inputText.split(f);
                 if (contains) {
                     add.append(findByRegex("\n" + f, 0));
@@ -78,8 +67,7 @@ public class Text {
         boolean containsNumber = false;
         String[] arrayWordFind = convertToArray(wordFind);
         for (int index = 0; index < wordFind.length(); index++) {
-            if (isValidation(arrayWordFind[index]))
-                containsNumber = true;
+            if (isValidation(arrayWordFind[index])) containsNumber = true;
         }
         return containsNumber;
     }
@@ -97,10 +85,9 @@ public class Text {
         String[] separatorArray = convertToArray(separator);
         String append = "";
         for (int index = 0; index < separatorArray.length; index++) {
-            if (isSpecialChar(separatorArray[index]))
-                separatorArray[index] = "\\" + separatorArray[index];
+            if (isSpecialChar(separatorArray[index])) separatorArray[index] = "\\" + separatorArray[index];
 
-            append +=separatorArray[index];
+            append += separatorArray[index];
         }
         return append;
     }
