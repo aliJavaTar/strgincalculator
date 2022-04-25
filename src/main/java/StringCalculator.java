@@ -6,19 +6,24 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
 
-    public int add(String numbers) {
+    public int add(String numbers)
+    {
         if (numbers.isEmpty()) return 0;
         String[] betweenBracket = findBetweenBracket(numbers);
         String replace = replace(numbers, betweenBracket);
         return sumNumbers(replace);
     }
 
-    private int sumNumbers(String string) {
+    private int sumNumbers(String string)
+    {
+        String trim = string.trim();
         int sum = 0;
-        String[] array = convertToArray(string);
+        String[] array = convertToArray(trim);
         String sumNumber = "";
-        for (String s : array) {
-            if (isValidation(s)) {
+        for (String s : array)
+        {
+            if (isValidation(s))
+            {
                 sumNumber = sumNumber + s;
                 if (sumNumber.length() > 3)
                     sumNumber = "";
@@ -33,9 +38,10 @@ public class StringCalculator {
 
     private String replace(String text, String[] find) {
 
-
-        for (String f : find) {
-            if (text.contains(f) && havaNumber(f)) {
+        for (String f : find)
+        {
+            if (havaNumber(f))
+            {
                 boolean contains = text.contains("\n" + f);
                 String[] split = text.split(f);
                 if (contains)
@@ -47,7 +53,8 @@ public class StringCalculator {
         return text;
     }
 
-    private boolean havaNumber(String wordFind) {
+    private boolean havaNumber(String wordFind)
+    {
         boolean containsNumber = false;
         String[] arrayWordFind = convertToArray(wordFind);
         for (int index = 0; index < wordFind.length(); index++) {
@@ -79,9 +86,10 @@ public class StringCalculator {
         while (matcher.find()) {
             group += matcher.group(1) + ",";
         }
+        System.out.println("group: "+ group);
         String[] findWords = group.split(",");
+        System.out.println("array group: "+Arrays.toString(findWords));
         Arrays.sort(findWords, Comparator.comparingInt(String::length).reversed());
         return findWords;
     }
 }
-

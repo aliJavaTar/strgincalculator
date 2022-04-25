@@ -133,7 +133,7 @@ class StringCalculatorTest {
 
     @Test
     public void testIdea() {
-        int add = calculator.add("//[foo][foo23bar][bar]\n1foo23bar3");
+        int add = calculator.add("[foo2][foo23bar][bar]\n1foo23bar3");
         assertEquals(4, add);
     }
 }
