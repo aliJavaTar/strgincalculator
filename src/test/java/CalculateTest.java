@@ -40,8 +40,7 @@ class CalculateTest {
     }
 
     @Test
-    void enterTwoNumber()
-    {
+    void enterTwoNumber() {
         int add;
 
         calculate.setInputText("1,1");
@@ -57,18 +56,21 @@ class CalculateTest {
         assertEquals(add, 37);
     }
 
-//    @Test
-//    void enterSingleString() {
-//
-//        int add;
-//        add = calculate.add(text);
-//        assertEquals(add, 1);
-//
-//        add = calculate.add("22");
-//        assertEquals(add, 22);
-//
-//        add = calculate.add("333");
-//        assertEquals(add, 333);
-//    }
+    @Test
+    void enterMultiNumbers() {
+        int add;
+
+        calculate.setInputText("1,2,3,4,5,6,7,8,9");
+        add = calculate.add();
+        assertEquals(add, 45);
+
+        calculate.setInputText("5,2,7,8");
+        add = calculate.add();
+        assertEquals(add, 22);
+
+        calculate.setInputText("33,4,78");
+        add = calculate.add();
+        assertEquals(add, 115);
+    }
 
 }
