@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Calculate {
     private Text text;
 
@@ -22,6 +24,7 @@ public class Calculate {
             System.out.println(exception.getMessage());
             return -1;
         }
+        text.splitText();
         return sum(text.splitNumbers());
     }
 

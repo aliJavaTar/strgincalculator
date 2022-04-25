@@ -143,4 +143,34 @@ class CalculateTest {
         add = calculate.add();
         assertEquals(add, 7);
     }
+    @Test
+    void multiLengthSeparators()
+    {
+        int add;
+
+        calculate.setInputText("//[*9*]\n1***2***3");
+        add = calculate.add();
+        assertEquals(add, 6);
+
+        calculate.setInputText("//[1]\n1**2*\n1*3");
+        add = calculate.add();
+        assertEquals(add, 7);
+
+        calculate.setInputText("//[3]\n1***2***3");
+        add = calculate.add();
+        assertEquals(add, 3);
+
+        calculate.setInputText("//[*][%]\n123");
+        add = calculate.add();
+        assertEquals(add, 123);
+
+        calculate.setInputText("//[1][%]\n2,4");
+        add = calculate.add();
+        assertEquals(add, 6);
+
+        calculate.setInputText("//[1][%]\n1,2,4");
+        add = calculate.add();
+        assertEquals(add, 7);
+
+    }
 }
