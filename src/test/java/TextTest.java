@@ -1,9 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TextTest {
     private Text text;
@@ -34,5 +34,26 @@ class TextTest {
     void isEmpty() {
         text.setInputText("");
         assertTrue(text.isEmpty());
+    }
+
+    @Test
+    void negativesNotAllowedTest() {
+        text.setInputText("1,-2,-3");
+        assertThatExceptionOfType(Exception.class)
+                .isThrownBy(() -> {
+                    text.negativesNotAllowed();
+                }).withMessageContaining("error: negatives not allowed -2,-3");
+
+        text.setInputText("1,2,-3");
+        assertThatExceptionOfType(Exception.class)
+                .isThrownBy(() -> {
+                    text.negativesNotAllowed();
+                }).withMessageContaining("error: negatives not allowed -3");
+
+        text.setInputText("-1,6,-8");
+        assertThatExceptionOfType(Exception.class)
+                .isThrownBy(() -> {
+                    text.negativesNotAllowed();
+                }).withMessageContaining("error: negatives not allowed -1,-8");
     }
 }

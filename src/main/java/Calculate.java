@@ -16,16 +16,29 @@ public class Calculate {
     public int add() {
         if (text.isEmpty())
             return 0;
-
+        try {
+            text.negativesNotAllowed();
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return -1;
+        }
         return sum(text.splitNumbers());
     }
 
     public int sum(String[] numbers) {
-        int sum = 0;
-        for (String string : numbers) {
-            sum += convertToInteger(string);
+        int sum = 0, tempNumber;
+        for (String num : numbers) {
+            tempNumber = convertToInteger(num);
+
+            if (isBiggerThan1000(tempNumber))
+                continue;
+            sum += tempNumber;
         }
         return sum;
+    }
+
+    private boolean isBiggerThan1000(int number) {
+        return number > 1000;
     }
 
     private int convertToInteger(String numbers) {
