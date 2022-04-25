@@ -61,7 +61,7 @@ public class Text {
             if (TextHavaNumber(f)) {
                 boolean contains = inputText.contains("\n" + f);
                 f = replaceCustomSeparator(f);
-
+                System.out.println(f);
                 String[] split = inputText.split(f);
                 if (contains) {
                     add.append(findByRegex("\n" + f, 0));
@@ -95,12 +95,14 @@ public class Text {
 
     private String replaceCustomSeparator(String separator) {
         String[] separatorArray = convertToArray(separator);
+        String append = "";
         for (int index = 0; index < separatorArray.length; index++) {
-            if (isSpecialChar(separatorArray[index])) {
+            if (isSpecialChar(separatorArray[index]))
                 separatorArray[index] = "\\" + separatorArray[index];
-            }
+
+            append +=separatorArray[index];
         }
-        return Arrays.toString(separatorArray);
+        return append;
     }
 
     private boolean isSpecialChar(String value) {

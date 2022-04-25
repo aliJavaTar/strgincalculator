@@ -168,9 +168,10 @@ class CalculateTest {
         add = calculate.add();
         assertEquals(add, 6);
 
-        calculate.setInputText("//[1][%]\n1,2,4");
+        calculate.setInputText("//[12][%]\n12,22");
         add = calculate.add();
-        assertEquals(add, 7);
+        assertEquals(add, 34);
 
     }
+
 }
